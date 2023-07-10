@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to Country Cards</title>
+    <style>
+        body
+        {
+            background-color: rgb(35, 33, 33);
+        }
+        #container
+        {
+            display: block;
+            padding: 30px 10px;
+            margin: 125px auto;
+            width: 50vh;
+            height: 40vh;
+            background-color: white;
+            border-radius: 10px; 
+            text-align: center;
+        }
+        #container:hover
+        {
+            transform: scale(1.1,1.1);
+            box-shadow: 2px 2px 10px 5px rgb(124, 123, 117) ;
+        }
+        #country-image
+        {
+            height: 70px;
+            width: 120px;px;
+        }
+        .attribute-header
+        {
+            font-size:12px;
+            font-family: Cinzel;
+        }
+        .attribute-value
+        {
+            font-size: 15px;
+            font-family: Cinzel;
+            font-weight: bold;
+        }
+        .footer-header
+        {
+            font-size:12px;
+            font-family: Cinzel;
+            text-overflow: ellipsis;
+        }
+        .footer-val
+        {
+            font-size: 13px;
+            font-family: Cinzel;
+            font-weight: bold;
+            text-overflow: ellipsis;
+        }
+        .footer-social
+        {    
+            float: left;
+            width: 33%;
+        }
+        #inputlist
+        {
+            width:40vh;
+            height: 20px;
+            display: block;
+            width: 40vh;
+            padding: 5px;
+            margin: 40px auto 6px auto;
+            font-size: 13px;
+            font-family: Cinzel;
+            border-radius: 10px;
+        }
+        #inputlist:hover
+        {
+            border-color: transparent;
+            box-shadow: 1px 1px 5px 4px lightsalmon;
+        }
+        #inputlabel
+        {
+            display: block;
+            width: 200px;
+            margin: 30px auto 5px auto;
+            font-size: 20px;
+            font-family: Cinzel;
+            color:white;
+            border-radius: 10px;
+        }
+
+    </style>
+</head>
+<body>
+    <div id="container">
+        
+    </div>
+    <script>
+        const container = document.getElementById('container');
+        const request = new XMLHttpRequest();
+        request.open('GET',"https://restcountries.com/v3.1/name/India");
+        request.send();
+        request.addEventListener('load',function()
+        {
+            const [data]=JSON.parse(this.responseText);
+            const htmlcode = `<div id="card-body">
+            <img src="${data.flags.png}" id="country-image" alt="${data.flags.alt}">
+            <h3 class="attribute-value">${data.name.common}</h3>
+            <p class="attribute-header">Name</p>
+        </div>
+        <hr>
+        <div id="card-footer">
+            <div class="footer-social">
+                <h3 class="footer-val">${data.area}</h3>
+                <p class="footer-header">Area</p>
+            </div>
+            <div class="footer-social">
+                <h3 class="footer-val">${data.name.official}</h3>
+                <p class="footer-header">Official</p>
+            </div>
+            <div class="footer-social">
+                <h3 class="footer-val">${data.population}</h3>
+                <p class="footer-header">Population</p>
+            </div>
+        </div>`;
+        container.insertAdjacentHTML('afterbegin',htmlcode);
+        }); 
+    </script>       
+</body>
+</html>
